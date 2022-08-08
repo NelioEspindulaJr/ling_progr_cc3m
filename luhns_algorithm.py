@@ -52,4 +52,4 @@ def card_validator(card_number):
 
      
 
-card_validator(1)
+card_validator(5493217736307656)
