@@ -6,8 +6,34 @@
 # Turma: CC3M                                      #
 # Professor: Abrantes Araújo Silva Filho           #
 #--------------------------------------------------#
+from operator import concat
+from random import randrange
+from typing import Concatenate
+
+def card_flag(ccNumber):
+    # FUNÇÃO PRA DESCOBRIR DE QUAL BANDEIRA É O CARTÃO.
+    # SEGUINDO A TABELA DE Issuer identification number (IIN) DISPONÍVEL EM: https://en.wikipedia.org/wiki/Payment_card_number
+    # FIZ UMA COMBINAÇÕES DE IF's 
+
+    str_ccNumber = str(ccNumber)
+
+    if str_ccNumber[0:2] == "34" or str_ccNumber[0:2] == "37":
+        return print("AMEX")
+    elif 2221 <= int(str_ccNumber[0:4]) <= 2720 or 51 <= int(str_ccNumber[0:2]) <= 55:
+        return print("MASTERCARD")
+    elif str_ccNumber[0:2] == "36" or str_ccNumber[0:2] == "54" or str_ccNumber[0:2] == "30" or str_ccNumber[0:2] == "38":
+        return print("DINNERS CLUB")
+    elif str_ccNumber[0] == "4" or str_ccNumber[0:4] == "4026" or str_ccNumber[0:4] == "4508" or str_ccNumber[0:4] == "4844" or str_ccNumber[0:4] == "4913" or str_ccNumber[0:4] == "4917" or str_ccNumber[0:5] == "417500":
+        return print("VISA")
+    elif str_ccNumber[0:4] == "6011" or  644 <= int(str_ccNumber[0:2]) <= 649 or str_ccNumber[0:1] == "65" or 622126 <= int(str_ccNumber[0:6]) <= 622925:
+        return print("DISCOVER")
+    elif 3528 <= int(str_ccNumber[0:4]) <= 3589:
+        return print("JCB")
+
+
 
 def card_validator(card_number):
+
     string_param = str(card_number)
     sum_db = 0
     dn_sum = 0
@@ -44,12 +70,10 @@ def card_validator(card_number):
     if sum_db % 10 == 0:
         # SEGUINDO O ALGORITMO DE Luhn, SE O MÓDULO DA DIVISÃO DESSA SOMA
         # TOTAL FOR IGUAL A ZERO, O NÚMERO DO CARTÃO É VÁLIDO.
-        return print("VALID")
+        return card_flag(card_number)
     else:
+        print("INVALID")
         # CASO CONTRÁRIO, INVÁLIDO.
-        return print("INVALID")
-
-
-     
-
-card_validator(5493217736307656)
+        return "INVALID"
+        
+card_validator(347913815632950)

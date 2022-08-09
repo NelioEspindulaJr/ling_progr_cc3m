@@ -10,4 +10,4 @@ Professor: Abrantes Araújo Silva Filho
 
 Desenvolvido em python, o meu algoritmo de Luhn, até o momento atual desta branch, está validando se o cartão de crédito é válido ou não.
 
-Inserir na função **card_validator** um número inteiro e executar o programa.
+Inserir na função **card_validator** um número inteiro e executar o programa. O retorno, se válido, será a bandeira do cartão. Se não, será Inválido.
