@@ -1,7 +1,9 @@
 # ling_prog_cc3m
 
 Aluno: Nélio Espíndula Junior
+
 Disciplina: Linguagens de programação
+
 Professor: Abrantes Araújo Silva Filho
 
 ## PSET1 - Algoritmo de Luhn
