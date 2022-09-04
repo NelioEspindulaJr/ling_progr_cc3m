@@ -17,7 +17,18 @@ class Image:
         self.pixels = pixels
 
     def get_pixel(self, x,y):
+        if x < 0:
+            x = 0
+        elif x >= self.width:
+            x = self.width -1
+        
+        if y < 0:
+            y = 0
+        elif y >= self.height:
+            y = self.height -1
+        
         return self.pixels[x + y * self.width]
+
 
     def set_pixel(self, x, y, c):
         self.pixels[x + y * self.width] = c
@@ -174,7 +185,7 @@ if __name__ == '__main__':
 
     fish = Image.load('test_images/bluegill.png')
     InvertedFish = fish.inverted()
-    Image.save(InvertedFish, 'test_results/inverted_bluegill.png')
+    Image.save(InvertedFish, 'question_answers_images/peixe.png')
 
     pass
 

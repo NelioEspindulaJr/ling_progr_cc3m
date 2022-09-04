@@ -23,3 +23,8 @@ R: Sabendo que os pixels podem ser representados em cores nos valores de 0 até 
 Portanto, os valores inversos da imagem 4x1 dada no enunciado são, respectivamente:
 
 • pixels: [226, 166, 119, 155]
+
+> QUESTÃO 02: faça a depuração e, quando terminar, seu código deve conseguir passar em todos os testes do grupo de teste TestInvertido (incluindo especificamente o que você acabou de criar). Execute seu filtro de inversão na imagem imagens_teste/peixe.png, salve o resultado como uma imagem PNG e salve a imagem em seu repositório GitHub
+
+No arquivo pset2.py, é possível encontrar no final do arquivo o código que executa esta tarefa. E, na pasta question_answers_images é possível ver a imagem peixe.png com o filtro invertido aplicado.
+
