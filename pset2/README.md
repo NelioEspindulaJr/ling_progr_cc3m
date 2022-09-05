@@ -30,6 +30,8 @@ Portanto, os valores inversos da imagem 4x1 dada no enunciado são, respectivame
 
 No arquivo pset2.py, é possível encontrar no final do arquivo o código que executa esta tarefa. E, na pasta question_answers_images é possível ver a imagem peixe.png com o filtro invertido aplicado.
 
+![Peixe](/question_answers_images/peixe.png "Bluegill")
+
 -------------
 
 > QUESTÃO 3: Considere uma etapa de correlacionar uma imagem com o seguinte kernel: \
@@ -66,6 +68,10 @@ Para calcularmos a imagem resultande dessa correlação, basta somarmos as multi
 
 No arquivo pset2.py, é possível encontrar no final do arquivo o código que executa esta tarefa. E, na pasta question_answers_images é possível ver a imagem porco_e_passaro.png correlacionada, de acordo com o kernel acima.
 
+Porco:
+
+![Porco](/question_answers_images/porco_e_passaro.png "Porco e passaro")
+
 -----
 
 > QUESTÃO 5: se quisermos usar uma versão desfocada B que foi feita com um kernel de desfoque de caixa de 3 × 3, que kernel k poderíamos usar para calcular toda a imagem nítida com uma única correlação? Justifique sua resposta mostrando os cálculos
@@ -95,4 +101,28 @@ A subtração de 2Ix,y com Bx,y resulta em:
 
 No arquivo pset2.py, é possível encontrar no final do arquivo o código que executa esta tarefa. E, na pasta question_answers_images é possível ver a imagem piton.png com a nitidez aplicada. Também no mesmo local, é possível encontrar o código que executa a tarefa da seção 5.1, na pasta question_answers_images está salvo o resultado da aplicação do blur com raio 5 na imagem teste.
 
-> QUESTÃO 6:
+Píton:
+
+![Piton](/question_answers_images/piton.png "Piton")
+
+Gato:
+
+![Gato](/question_answers_images/gato.png "Gato")
+
+> QUESTÃO 6: explique o que cada um dos kernels acima, por si só, está fazendo. Tente executar mostrar nos resultados dessas correlações intermediárias para ter uma noção do que está acontecendo aqui.
+
+Cada um dos kernels apresentados é responsável por derivar a imagem com as bordas destacadas, sendo um deles pelo eixo x e outro pelo eixo y.
+
+Kernel Sobel no eixo X apenas:
+
+![SobelX](/question_answers_images/construc_sobel_X.png "Kernel Sobel X")
+
+Kernel Sobel no eixo Y apenas:
+
+![SobelY](/question_answers_images/construc_sobel_Y.png "Kernel Sobel Y")
+
+Aplicação da Operação de Sobel completa, segundo a fórmula:
+
+Ox,y = round (√Ox²x,y + Oy² x,y)
+
+![SobelOperation](/question_answers_images/construcao.png "Operação Sobel")

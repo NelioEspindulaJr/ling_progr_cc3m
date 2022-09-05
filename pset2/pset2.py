@@ -102,7 +102,26 @@ class Image:
         return img
 
     def edges(self):
-        raise NotImplementedError
+        img = Image.new(self.width, self.height)
+        kernelSobelX = [[1, 0, -1],
+                        [2, 0, -2],
+                        [1, 0, -1]]
+
+        kernelSobelY = [[1, 2, 1],
+                        [0, 0, 0],
+                        [-1, -2, -1]]
+
+        SobelXApllied = self.correlated(kernelSobelX)
+        SobelYApllied = self.correlated(kernelSobelY)
+
+
+        for x in range(self.width):
+            for y in range(self.height):
+                sobelOperation = round(math.sqrt(SobelXApllied.get_pixel(x,y)**2 + SobelYApllied.get_pixel(x,y)**2))
+                img.set_pixel(x, y, sobelOperation)
+        img.normalizedPixel()
+        
+        return img
 
 
 
@@ -267,12 +286,35 @@ if __name__ == '__main__':
     sharpenedPython = python.sharpened(11)
     Image.save(sharpenedPython,'question_answers_images/piton.png')
 
+
+    #QUESTÃO 6:
+    #RESULTADOS INDIVIDUAIS DA APLICAÇÃO DOS KERNELS DA OPERAÇÃO DE SOBEL 
+
+    kernelSobelX = [[1, 0, -1],
+                    [2, 0, -2],
+                    [1, 0, -1]]
+
+    kernelSobelY = [[1, 2, 1],
+                    [0, 0, 0],
+                    [-1, -2, -1]]
+
+    construct = Image.load('test_imgs/construct.png')
+    constructSobelX = construct.correlated(kernelSobelX)
+    Image.save(constructSobelX, 'question_answers_images/construc_sobel_X.png')
+
+    constructSobelY = construct.correlated(kernelSobelY)
+    Image.save(constructSobelY, 'question_answers_images/construc_sobel_Y.png')
+
+    edgedConstruct = construct.edges()
+    Image.save(edgedConstruct, 'question_answers_images/construcao.png')
+
     pass
 
     Image.show(InvertedFish)
     Image.show(BlurredCat)
     Image.show(correlatedPig)
     Image.show(sharpenedPython)
+    Image.show(edgedConstruct)
 
     # the following code will cause windows from Image.show to be displayed
     # properly, whether we're running interactively or not:
