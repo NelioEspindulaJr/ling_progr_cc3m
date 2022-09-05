@@ -74,7 +74,7 @@ class Image:
 
     def normalizedPixel(self):
         for x in range(self.width):
-            for y in range(self.width):
+            for y in range(self.height):
                 analyzedPixel = self.get_pixel(x,y)
 
                 # CONDICIONAIS IMPEDEM PIXELS DE TEREM VALORES MENORES QUE 0
@@ -259,7 +259,7 @@ if __name__ == '__main__':
 
     cat = Image.load('test_imgs/cat.png')
     BlurredCat = cat.blurred(5)
-    Image.save(BlurredCat)
+    Image.save(BlurredCat,'question_answers_images/gato.png')
 
     #QUESTÃO 5
 
