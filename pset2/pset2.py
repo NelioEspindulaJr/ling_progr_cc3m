@@ -6,9 +6,13 @@ import base64
 import tkinter
 
 from io import BytesIO
+from turtle import width
 from PIL import Image as PILImage
 
-## NO ADDITIONAL IMPORTS ALLOWED!
+# NO ADDITIONAL IMPORTS ALLOWED!
+def kernelMaker(n):
+        kernel = [[1/n**2 for index in range(n)]for index in range(n)]
+        return kernel
 
 class Image:
     def __init__(self, width, height, pixels):
@@ -16,22 +20,24 @@ class Image:
         self.height = height
         self.pixels = pixels
 
-    def get_pixel(self, x,y):
+    def get_pixel(self, x, y):
+
+        # CONDICIONAIS QUE, SE X < 0 ou Y < 0, OS PIXELS FORA DO LIMITE X Y
+        # TERÃO O MESMO VALOR DO SEU PIXEL ADJACENTE.
         if x < 0:
             x = 0
         elif x >= self.width:
-            x = self.width -1
-        
+            x = self.width - 1
+
         if y < 0:
             y = 0
         elif y >= self.height:
-            y = self.height -1
-        
-        return self.pixels[x + y * self.width]
+            y = self.height - 1
 
+        return self.pixels[(x + y * self.width)]
 
     def set_pixel(self, x, y, c):
-        self.pixels[x + y * self.width] = c
+        self.pixels[(x + y * self.width)] = c
 
     def apply_per_pixel(self, func):
         result = Image.new(self.width, self.height)
@@ -45,14 +51,59 @@ class Image:
     def inverted(self):
         return self.apply_per_pixel(lambda c: 255-c)
 
-    def blurred(self, n):
-        raise NotImplementedError
+    def correlated(self, n):
+        kernelSize = len(n)
+        img = Image.new(self.width, self.height)
 
+        for x in range(self.width):
+            for y in range(self.height):
+                correlationSum = 0
+                for z in range(kernelSize):
+                    for w in range(kernelSize):
+                        correlationSum += self.get_pixel((x-(kernelSize//2)+z), (y-(kernelSize//2))+w)*n[z][w]
+                        # MENÇÃO HONROSA AO COLEGA LUCAS ZANON GUARNIER QUE ME AJUDOU COM ESTE CÓDIGO
+                img.set_pixel(x, y, correlationSum)
+        return img
+                    
+
+    def blurred(self, n):
+        kernel = self.correlated(kernelMaker(n))
+        kernel.normalizedPixel()
+        return kernel
+
+
+    def normalizedPixel(self):
+        for x in range(self.width):
+            for y in range(self.width):
+                analyzedPixel = self.get_pixel(x,y)
+
+                # CONDICIONAIS IMPEDEM PIXELS DE TEREM VALORES MENORES QUE 0
+                # OU MAIORES QUE 255
+                if  analyzedPixel < 0:
+                    analyzedPixel = 0
+
+                elif analyzedPixel > 255:
+                    analyzedPixel = 255
+                
+                analyzedPixel = round(analyzedPixel)
+                # OS PIXELS NAO PODEM TER VALOR FLUTUANTE, POR ISSO ARRENDONDAMOS
+                # UTILIZANDO A FUNÇÃO ROUND
+
+                self.set_pixel(x,y, analyzedPixel)
+    
     def sharpened(self, n):
-        raise NotImplementedError
+        blurredImage = self.blurred(n)
+        img = Image.new(self.width, self.height)
+        for x in range(self.width):
+            for y in range(self.height):
+                sharpenedImageFormula = round(2*self.get_pixel(x,y)-(blurredImage.get_pixel(x,y)))
+                img.set_pixel(x, y, sharpenedImageFormula)
+        img.normalizedPixel()
+        return img
 
     def edges(self):
         raise NotImplementedError
+
 
 
     # Below this point are utilities for loading, saving, and displaying
@@ -71,9 +122,8 @@ class Image:
         Loads an image from the given file and returns an instance of this
         class representing that image.  This also performs conversion to
         grayscale.
-
         Invoked as, for example:
-           i = Image.load('test_images/cat.png')
+           i = Image.load('test_imgs/cat.png')
         """
         with open(fname, 'rb') as img_handle:
             img = PILImage.open(img_handle)
@@ -93,7 +143,6 @@ class Image:
     def new(cls, width, height):
         """
         Creates a new blank image (all 0's) of the given height and width.
-
         Invoked as, for example:
             i = Image.new(640, 480)
         """
@@ -118,7 +167,6 @@ class Image:
         """
         Returns a base 64 encoded string containing the given image as a GIF
         image.
-
         Utility function to make show_image a little cleaner.
         """
         buff = BytesIO()
@@ -172,26 +220,63 @@ try:
     tk_root = tkinter.Tk()
     tk_root.withdraw()
     tcl = tkinter.Tcl()
+
     def reafter():
-        tcl.after(500,reafter)
-    tcl.after(500,reafter)
+        tcl.after(500, reafter)
+    tcl.after(500, reafter)
 except:
     tk_root = None
 WINDOWS_OPENED = False
 
 
-# 3.2 DEBUGGING - INVERSAO DA FOTO DO PEIXE bluegill.png 
+
+
+# 3.2 DEBUGGING - INVERSAO DA FOTO DO PEIXE bluegill.png
 if __name__ == '__main__':
 
-    fish = Image.load('test_images/bluegill.png')
+    # QUESTÃO 2:
+    fish = Image.load('test_imgs/bluegill.png')
     InvertedFish = fish.inverted()
     Image.save(InvertedFish, 'question_answers_images/peixe.png')
+    
+    
+    # QUESTAO 4:
+    kernel = [[0, 0, 0, 0, 0, 0, 0, 0, 0], 
+               [0, 0, 0, 0, 0, 0, 0, 0, 0], 
+               [1, 0, 0, 0, 0, 0, 0, 0, 0], 
+               [0, 0, 0, 0, 0, 0, 0, 0, 0], 
+               [0, 0, 0, 0, 0, 0, 0, 0, 0], 
+               [0, 0, 0, 0, 0, 0, 0, 0, 0], 
+               [0, 0, 0, 0, 0, 0, 0, 0, 0], 
+               [0, 0, 0, 0, 0, 0, 0, 0, 0], 
+               [0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+    pig = Image.load('test_imgs/pigbird.png')
+    correlatedPig = pig.correlated(kernel)
+    Image.save(correlatedPig, 'question_answers_images/porco_e_passaro.png')
+
+    #SEÇÃO 5.1 EXERCÍCIO
+
+    cat = Image.load('test_imgs/cat.png')
+    BlurredCat = cat.blurred(5)
+    Image.save(BlurredCat)
+
+    #QUESTÃO 5
+
+    python = Image.load('test_imgs/python.png')
+    sharpenedPython = python.sharpened(11)
+    Image.save(sharpenedPython,'question_answers_images/piton.png')
 
     pass
 
     Image.show(InvertedFish)
-    
+    Image.show(BlurredCat)
+    Image.show(correlatedPig)
+    Image.show(sharpenedPython)
+
     # the following code will cause windows from Image.show to be displayed
     # properly, whether we're running interactively or not:
     if WINDOWS_OPENED and not sys.flags.interactive:
         tk_root.mainloop()
+
+
