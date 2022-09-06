@@ -30,7 +30,7 @@ Portanto, os valores inversos da imagem 4x1 dada no enunciado são, respectivame
 
 No arquivo pset2.py, é possível encontrar no final do arquivo o código que executa esta tarefa. E, na pasta question_answers_images é possível ver a imagem peixe.png com o filtro invertido aplicado.
 
-![Peixe](/question_answers_images/peixe.png "Bluegill")
+![Peixe](./question_answers_images/peixe.png "Bluegill")
 
 -------------
 
@@ -70,7 +70,7 @@ No arquivo pset2.py, é possível encontrar no final do arquivo o código que ex
 
 Porco:
 
-![Porco](/question_answers_images/porco_e_passaro.png "Porco e passaro")
+![Porco](./question_answers_images/porco_e_passaro.png "Porco e passaro")
 
 -----
 
@@ -107,7 +107,7 @@ Píton:
 
 Gato:
 
-![Gato](/question_answers_images/gato.png "Gato")
+![Gato](./question_answers_images/gato.png "Gato")
 
 > QUESTÃO 6: explique o que cada um dos kernels acima, por si só, está fazendo. Tente executar mostrar nos resultados dessas correlações intermediárias para ter uma noção do que está acontecendo aqui.
 
@@ -115,14 +115,14 @@ Cada um dos kernels apresentados é responsável por derivar a imagem com as bor
 
 Kernel Sobel no eixo X apenas:
 
-![SobelX](/question_answers_images/construc_sobel_X.png "Kernel Sobel X")
+![SobelX](./question_answers_images/construc_sobel_X.png "Kernel Sobel X")
 
 Kernel Sobel no eixo Y apenas:
 
-![SobelY](/question_answers_images/construc_sobel_Y.png "Kernel Sobel Y")
+![SobelY](./question_answers_images/construc_sobel_Y.png "Kernel Sobel Y")
 
 Aplicação da Operação de Sobel completa, segundo a fórmula:
 
 Ox,y = round (√Ox²x,y + Oy² x,y)
 
-![SobelOperation](/question_answers_images/construcao.png "Operação Sobel")
+![SobelOperation](./question_answers_images/construcao.png "Operação Sobel")
